@@ -22,25 +22,70 @@ private Item[] store =
   new Item(19967, 45)
 };                             
 public int linearSearch(int catNumToFind)
-{
-  //complete this method
-  return -1;
+{ 
+  int result = -1;
+  for(int indexSearching=0; indexSearching<store.length; indexSearching++) { 
+    if(store[indexSearching].getCatNum() == catNumToFind) {
+      result = store[indexSearching].getInventory();
+      break;
+    }
+  }
+  return result;
 }
 public int recursiveLinearSearch(int catNumToFind, int startIndex)
 {
-  //complete this method
-  return -1;
+  int result = -1;
+  if(startIndex>=store.length) {
+    result = -1;
+  } else if(store[startIndex].getCatNum() == catNumToFind) {
+    result = store[startIndex].getInventory();
+  } else {
+    result=recursiveLinearSearch(catNumToFind, startIndex+1);
+  }
+  return result;
 }
 public int binarySearch(int catNumToFind)
 {
-  //complete this method    
-  return -1;
+  int nHigh = store.length -1;
+  int nLow = 0;
+  int result = -1;
+  while(nHigh >= nLow) { 
+    int guess = (nHigh+nLow)/2;
+    if(store[guess].getCatNum() == catNumToFind) {
+      result = store[guess].getInventory();
+      break;
+    } else if(store[guess].getCatNum() < catNumToFind) {
+      nLow = guess+1;
+    }
+    else{
+      nHigh = guess-1;
+    }
+  }
+  return result;
 }
+
 public int recursiveBinarySearch(int catNumToFind, int nLow, int nHigh)
 {
-  //complete this method    
-  return -1;
+  int result = -1;
+  int guess = (nHigh+nLow)/2;
+  if(nHigh<nLow) {
+    result = -1;
+  } else if(store[guess].getCatNum() == catNumToFind) {
+    result = store[guess].getInventory();
+  } else if(store[guess].getCatNum() < catNumToFind) {
+    result = recursiveBinarySearch(catNumToFind, guess+1, nHigh);
+  } else if(store[guess].getCatNum() > catNumToFind){
+    result = recursiveBinarySearch(catNumToFind, nLow, guess-1);
+  }
+  return result;
 }
+
+
+
+
+
+
+
 public void setup()
 {
   int[] tests = {0, 183, 184, 2370, 15320, 19967, 19968};
@@ -94,9 +139,3 @@ public void draw()
 {
   //empty!
 }
-
-
-
-
-
-
